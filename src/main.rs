@@ -1,6 +1,7 @@
 use std::env::{args, current_exe};
 use std::error::Error;
 use std::ffi::OsStr;
+use std::io;
 use std::iter::once;
 use std::mem::size_of;
 use std::os::windows::ffi::OsStrExt;
@@ -23,8 +24,8 @@ fn main() -> Result<(), Box<dyn Error>> {
 	let args: Vec<String> = args().collect();
 
 	if args.len() <= 1 || (args.len() == 2 && args[1] == "--") || args[1] == "--help" {
-		println!("Usage: sudo <COMMAND>...");
-		println!("Run a command with administrator privileges.");
+		eprintln!("Usage: sudo <COMMAND>...");
+		eprintln!("Run a command with administrator privileges.");
 		exit(1);
 	} else if args[1] == "--attach-id" {
 		unsafe {
@@ -75,7 +76,8 @@ fn main() -> Result<(), Box<dyn Error>> {
 		let mut code: u32 = 0;
 		unsafe {
 			if ShellExecuteExW(&mut info) == 0 {
-				panic!("ShellExecuteExW failed");
+				eprintln!("{}", io::Error::last_os_error());
+				exit(1);
 			}
 			WaitForSingleObject(info.hProcess, INFINITE);
 			GetExitCodeProcess(info.hProcess, &mut code);
