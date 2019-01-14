@@ -4,6 +4,10 @@ version = "0.1.0"
 authors = ["jingyu9575 <qw2g64@zoho.eu>"]
 edition = "2018"
 
+[profile.release]
+lto = true
+panic = 'abort'
+
 [dependencies]
 winapi = { version = "0.3", features = [
 	"winbase", "winuser", "wincon", "shellapi", "synchapi", "handleapi", "processthreadsapi"
