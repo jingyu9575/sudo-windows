@@ -22,7 +22,7 @@ fn wstr<S: AsRef<OsStr> + ?Sized>(s: &S) -> Vec<u16> {
 fn main() -> Result<(), Box<dyn Error>> {
 	let args: Vec<String> = args().collect();
 
-	if args.len() <= 1 || args[1] == "--help" {
+	if args.len() <= 1 || (args.len() == 2 && args[1] == "--") || args[1] == "--help" {
 		println!("Usage: sudo <COMMAND>...");
 		println!("Run a command with administrator privileges.");
 		exit(1);
