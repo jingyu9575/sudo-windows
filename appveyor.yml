@@ -9,10 +9,7 @@ build:
   project: sudo-windows.sln
   verbosity: minimal
 artifacts:
-- path: x64\Release\sudo-windows.exe
-  name: sudo
-- path: Win32\Release\sudo-windows.exe
-  name: sudo-x86
+- path: $(platform)\Release\sudo-$(platform).exe
 deploy:
 - provider: GitHub
   auth_token:
