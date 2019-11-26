@@ -31,5 +31,6 @@
     <None Include=".gitattributes" />
     <None Include=".gitignore" />
     <None Include="appveyor.yml" />
+    <None Include="README.md" />
   </ItemGroup>
 </Project>
