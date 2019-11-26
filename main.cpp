@@ -109,7 +109,6 @@ int main() try {
 			NULL, NULL, NULL, &startup_info, &proc_info));
 		CloseHandle(proc_info.hThread);
 		handle = proc_info.hProcess;
-		SetConsoleCtrlHandler(NULL, TRUE);
 	} else {
 		SHELLEXECUTEINFOW info = { sizeof(info) };
 		info.fMask = SEE_MASK_NOCLOSEPROCESS;
@@ -129,6 +128,7 @@ int main() try {
 		check_error(ShellExecuteExW(&info));
 		handle = info.hProcess;
 	}
+	SetConsoleCtrlHandler(NULL, TRUE);
 
 	DWORD code;
 	if (!handle) return 9009;
